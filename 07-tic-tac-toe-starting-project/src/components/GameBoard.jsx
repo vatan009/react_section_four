@@ -15,7 +15,6 @@ export default function GameBoard() {
         {row.map((symbol, colIndex) => {
           return (
             <li key={colIndex}>
-             
               <button>{symbol}</button>
             </li>
           );
