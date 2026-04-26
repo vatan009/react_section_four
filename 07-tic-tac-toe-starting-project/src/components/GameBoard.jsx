@@ -6,9 +6,9 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard() {
+export default function GameBoard({togglePlayer,activePlayerSymbol}) {
   const [board, setBoard] = useState(initialGameBoard);
-  const [isX,setIsX]=useState(true);
+  // const [isX,setIsX]=useState(true);
   const [count,setCount]=useState(9);
   function handleSelect(rowIndex, colIndex) {
     if(0===count){
@@ -17,14 +17,16 @@ export default function GameBoard() {
     setCount((count)=>{
       return count-1;
     })
+
     setBoard((board) => {
       const temp = [ ...board.map((innerArray) => [...innerArray]) ];
 
-      isX?temp[rowIndex][colIndex] = "X":temp[rowIndex][colIndex]="O";
-      setIsX(!isX);
+     temp[rowIndex][colIndex] = activePlayerSymbol;
+      // setIsX(!isX);
       console.log(temp)
       return temp;
     });
+    togglePlayer();
   }
 
   return (
