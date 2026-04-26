@@ -1,13 +1,17 @@
 import Player from "./components/Player";
 import GameBoard from "./components/GameBoard";
 import { useState } from "react";
+import Log from "./components/Log";
+
 function App() {
    const [activePlayer,setActivePlayer]=useState('X');
+
     function togglePlayer(){
       'X'===activePlayer&&setActivePlayer('O');
       'O'===activePlayer&&setActivePlayer('X');
     }
-  return (
+
+    return (
 
     <>
       <main>
