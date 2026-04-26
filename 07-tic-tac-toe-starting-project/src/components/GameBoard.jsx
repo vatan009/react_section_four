@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const initialGameBoard = [
   [null, null, null],
   [null, null, null],
@@ -5,26 +7,45 @@ const initialGameBoard = [
 ];
 
 export default function GameBoard() {
+  const [board, setBoard] = useState(initialGameBoard);
+  const [isX,setIsX]=useState(true);
+  const [count,setCount]=useState(9);
+  function handleSelect(rowIndex, colIndex) {
+    if(0===count){
+      return;
+    }
+    setCount((count)=>{
+      return count-1;
+    })
+    setBoard((board) => {
+      const temp = [ ...board.map((innerArray) => [...innerArray]) ];
+
+      isX?temp[rowIndex][colIndex] = "X":temp[rowIndex][colIndex]="O";
+      setIsX(!isX);
+      console.log(temp)
+      return temp;
+    });
+  }
+
   return (
     <ol id="game-board">
-
- {initialGameBoard.map((row, rowIndex) => {
-  return (
-    <div key={rowIndex}>
-      <ol>
-        {row.map((symbol, colIndex) => {
-          return (
-            <li key={colIndex}>
-              <button>{symbol}</button>
-            </li>
-          );
-        })}
-      </ol>
-    </div>
-  );
-})}
+      {board.map((row, rowIndex) => {
+        return (
+          <div key={rowIndex}>
+            <ol>
+              {row.map((symbol, colIndex) => {
+                return (
+                  <li key={colIndex}>
+                    <button onClick={() => handleSelect(rowIndex, colIndex)}>
+                      {symbol}
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        );
+      })}
     </ol>
-
-
   );
 }
